@@ -2,9 +2,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 /** Reducers */
-import { userReducer } from '../reducers';
+import { cartReducer, userReducer } from '../reducers';
 
-export const store = configureStore({ reducer: { user: userReducer } });
+export const store = configureStore({
+  reducer: {
+    user: userReducer,
+    cart: cartReducer,
+  },
+});
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

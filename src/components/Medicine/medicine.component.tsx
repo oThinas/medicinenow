@@ -6,16 +6,25 @@ import { colors } from '../../core';
 /** Components */
 import { ButtonComponent, TextComponent } from '..';
 
+/** Hooks */
+import { useAppDispatch, useAppSelector } from '../../hook';
+
 /** Props */
 import { IMedicineProps } from './medicine.props';
+import { addMedicine, removeMedicine } from '../../reducers';
 
 export function Medicine(props: IMedicineProps): JSX.Element {
-  function handleAddToCart(id: number): void {
-    console.log('add', id);
+  const cart = useAppSelector((state) => state.cart);
+  const quantity = cart.find((item) => item.id === props.id)?.quantity || 0;
+
+  const dispatch = useAppDispatch();
+
+  function handleAddToCart(): void {
+    dispatch(addMedicine(props));
   }
 
-  function handleRemoveFromCart(id: number): void {
-    console.log('remove', id);
+  function handleRemoveFromCart(): void {
+    dispatch(removeMedicine(props));
   }
 
   return (
@@ -37,15 +46,15 @@ export function Medicine(props: IMedicineProps): JSX.Element {
       </View>
 
       <View style={styles.actions}>
-        <ButtonComponent variant='icon' onPress={() => handleAddToCart(props.id)}>
+        <ButtonComponent variant='icon' onPress={() => handleAddToCart()}>
           <PlusCircle size={28} color={colors.white}/>
         </ButtonComponent>
 
         <TextComponent>
-          0
+          {quantity}
         </TextComponent>
 
-        <ButtonComponent variant='icon' onPress={() => handleRemoveFromCart(props.id)}>
+        <ButtonComponent variant='icon' onPress={() => handleRemoveFromCart()}>
           <MinusCircle size={28} color={colors.white}/>
         </ButtonComponent>
       </View>

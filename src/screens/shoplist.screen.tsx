@@ -3,17 +3,32 @@ import { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { HourglassLow } from 'phosphor-react-native';
 import Toast from 'react-native-toast-message';
-import { colors } from '../core';
+import { NavigationProps, colors } from '../core';
 
 /** Components */
-import { Medicine, TextComponent } from '../components';
+import { ButtonComponent, Medicine, TextComponent } from '../components';
+
+/** Hooks */
+import { useAppDispatch, useAppSelector } from '../hook';
+
+/** Reducers */
+import { clearCart } from '../reducers';
+
+/** Utils */
+import { handleNavigate } from '../utils';
+
+/** API */
+import { medicineAPI } from '../api';
 
 /** Interfaces */
 import { IMedicine } from '../interfaces';
-import { medicineAPI } from '../api';
 
-export function ShopList(): JSX.Element {
+export function ShopList({ navigation }: NavigationProps<'ShopList'>): JSX.Element {
   const [medicineList, setMedicineList] = useState<IMedicine[]>([]);
+
+  const dispatch = useAppDispatch();
+  const cart = useAppSelector((state) => state.cart);
+  const medicineQuantity = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   async function getMedicineList(): Promise<void> {
     try {
@@ -35,6 +50,9 @@ export function ShopList(): JSX.Element {
     getMedicineList();
   }, []);
 
+  function handleClearCart(): void {
+    dispatch(clearCart());
+  }
 
   return (
     <View style={styles.container}>
@@ -54,6 +72,20 @@ export function ShopList(): JSX.Element {
           </TextComponent>
         </View>
       )}
+
+      <View style={styles.buttons}>
+        <TextComponent>
+          Total de itens: {medicineQuantity}
+        </TextComponent>
+
+        <ButtonComponent onPress={() => handleNavigate('ShopList', navigation)}>
+          Finalizar resgate
+        </ButtonComponent>
+
+        <ButtonComponent additionalStyles={styles.dangerButton} onPress={() => handleClearCart()}>
+          Limpar carrinho
+        </ButtonComponent>
+      </View>
     </View>
   );
 }
@@ -63,6 +95,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 52,
     paddingHorizontal: 16,
+    paddingBottom: 16,
     gap: 8,
   },
   emptyList: {
@@ -70,4 +103,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  buttons: { gap: 8 },
+  dangerButton: { backgroundColor: colors.danger },
 });
