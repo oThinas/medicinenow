@@ -78,7 +78,7 @@ export function ShopList({ navigation }: NavigationProps<'ShopList'>): JSX.Eleme
           Total de itens: {medicineQuantity}
         </TextComponent>
 
-        <ButtonComponent onPress={() => handleNavigate('ShopList', navigation)}>
+        <ButtonComponent onPress={() => handleNavigate('ShopList', navigation)} disabled={!cart.length}>
           Finalizar resgate
         </ButtonComponent>
 
