@@ -3,12 +3,14 @@ import { PropsWithChildren } from 'react';
 import { StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
 import { colors } from '../../core';
 
+/** Components */
+import { TextComponent } from '..';
+
 /** Props */
 import { IButtonProps } from './button.props';
 
-/** Props */
+/** Types */
 import { PropsWithAdditionalStyles } from '../../types';
-import { TextComponent } from '../Text/text.component';
 
 export function ButtonComponent({ variant = 'primary', ...props }: PropsWithChildren<PropsWithAdditionalStyles<ViewStyle, IButtonProps>>): JSX.Element {
   const buttonStyles = [styles.container, styles[variant], props.additionalStyles];
@@ -36,6 +38,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.primary,
   },
+  icon: {},
   disabled: {
     backgroundColor: colors.gray,
     borderColor: colors.gray,

@@ -15,7 +15,7 @@ import { handleNavigate } from '../utils';
 import { useAppDispatch } from '../hook';
 
 /** Reducers */
-import { setUser } from '../../reducers';
+import { setUser } from '../reducers';
 
 /** Interfaces */
 import { ILoginForm } from '../interfaces';

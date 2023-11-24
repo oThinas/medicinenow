@@ -1,6 +1,6 @@
 /** Interfaces */
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { IUser } from '../src/interfaces';
+import { IUser } from '../interfaces';
 
 const initialState: IUser = {
   age: '',
