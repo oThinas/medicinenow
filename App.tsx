@@ -9,7 +9,19 @@ import { MainNavigator, colors } from './src/core';
 export default function App(): JSX.Element {
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
+      <NavigationContainer
+        theme={{
+          colors: {
+            background: colors.background,
+            primary: colors.primary,
+            text: colors.white,
+            card: '',
+            border: '',
+            notification: '',
+          },
+          dark: true,
+        }}
+      >
         <MainNavigator />
 
         <StatusBar barStyle='light-content' translucent backgroundColor={colors.background}/>

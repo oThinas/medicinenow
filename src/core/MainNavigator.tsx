@@ -2,7 +2,7 @@
 import { StackScreenProps, createStackNavigator } from '@react-navigation/stack';
 
 /** Screens */
-import { Login } from '../screens';
+import { Login, Register } from '../screens';
 
 export type MainNavigatorParamList = {
   Login: undefined;
@@ -17,6 +17,7 @@ export function MainNavigator(): JSX.Element {
   return (
     <Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
       <Screen name='Login' component={Login} />
+      <Screen name='Register' component={Register} />
     </Navigator>
   );
 }

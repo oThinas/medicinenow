@@ -3,15 +3,18 @@ import { useRef, useState } from 'react';
 import { View, StyleSheet, TextInput, Keyboard } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 import Toast from 'react-native-toast-message';
-import { colors } from '../core';
+import { NavigationProps, colors } from '../core';
 
 /** Components */
 import { ButtonComponent, TextComponent } from '../components';
 
+/** Utils */
+import { handleNavigate } from '../utils';
+
 /** Interfaces */
 import { ILoginForm } from '../interfaces';
 
-export function Login(): JSX.Element {
+export function Login({ navigation }: NavigationProps<'Login'>): JSX.Element {
   const { control, handleSubmit } = useForm<ILoginForm>();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -51,19 +54,19 @@ export function Login(): JSX.Element {
       <View style={styles.inputContainer}>
         <View style={styles.input}>
           <TextComponent>
-          Usuário
+          Email
           </TextComponent>
 
           <Controller
             control={control}
-            name='username'
+            name='email'
             render={({ field: { onChange, value } }) => (
               <TextInput
                 ref={textInputRef}
                 onChangeText={(value) => onChange(value)}
                 value={value}
                 style={styles.field}
-                autoComplete='username'
+                autoComplete='email'
               />
             )}
           />
@@ -98,7 +101,10 @@ export function Login(): JSX.Element {
 
         <TextComponent additionalStyles={styles.small}>
           Não possui conta?{' '}
-          <TextComponent additionalStyles={[styles.underline, styles.small]}>
+          <TextComponent
+            additionalStyles={[styles.underline, styles.small]}
+            onPress={() => handleNavigate('Register', navigation)}
+          >
             Registre-se
           </TextComponent>
         </TextComponent>
