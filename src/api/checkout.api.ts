@@ -1,5 +1,5 @@
 /** API */
-import { api } from '../../lib';
+import { api } from '../lib';
 
 /** Interfaces */
 import { ICheckout, IMedicineCart } from '../interfaces';
@@ -7,6 +7,9 @@ import { ICheckout, IMedicineCart } from '../interfaces';
 async function checkout(cart: IMedicineCart[]): Promise<ICheckout> {
   try {
     const response = await api.post('checkout', cart);
+
+    if (response.status !== 200) throw new Error('Error checking out');
+
     const checkoutData = response.data;
 
     return checkoutData;

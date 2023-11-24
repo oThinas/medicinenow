@@ -1,5 +1,5 @@
 /** API */
-import { api } from '../../lib';
+import { api } from '../lib';
 
 /** Interfaces */
 import { IMedicine } from '../interfaces';
@@ -7,6 +7,8 @@ import { IMedicine } from '../interfaces';
 async function getMedicineList(): Promise<IMedicine[]> {
   try {
     const response = await api.get('medicine');
+    if (response.status !== 200) throw new Error('Error getting medicine list');
+
     const medicineList = response.data;
 
     return medicineList;

@@ -1,0 +1,70 @@
+POST - /user/login
+body: {
+  email: string,
+  password: string,
+}
+
+response: {
+  age: string,
+  email: string,
+  name: string,
+  password: string,
+  phone: string,
+  surname: string,
+  susCode: string,
+  zipCode: string,
+};
+
+POST - /user/register
+body: {
+  age: string,
+  email: string,
+  name: string,
+  password: string,
+  phone: string,
+  surname: string,
+  susCode: string,
+  zipCode: string,
+}
+
+response: {
+  age: string,
+  email: string,
+  name: string,
+  password: string,
+  phone: string,
+  surname: string,
+  susCode: string,
+  zipCode: string,
+};
+
+GET - /medicine
+{
+  data: [
+    {
+      id: number,
+      name: string,
+      manufacturer: string,
+      dosage: string,
+    }
+  ]
+}
+
+POST - /checkout
+body: {
+  data: [
+    {
+      id: number,
+      name: string,
+      manufacturer: string,
+      dosage: string,
+      quantity: number,
+    }
+  ]
+}
+
+response: {
+  id: number,
+  code: number,
+  address: number,
+}

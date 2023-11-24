@@ -1,3 +1,11 @@
+/**
+ * Integrantes:
+ * Enzo Trevisan RM94745
+ * José Vitor Brasilino RM95438
+ * Thiago Gabriel Alves RM95584
+ * Thiago Martins Prado RM94426
+ */
+
 /** Core */
 import 'react-native-gesture-handler';
 import Toast, { SuccessToast, ErrorToast } from 'react-native-toast-message';
