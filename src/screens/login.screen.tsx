@@ -46,6 +46,7 @@ export function Login({ navigation }: NavigationProps<'Login'>): JSX.Element {
       topOffset: 56,
     });
 
+    handleNavigate('ShopList', navigation);
     console.log(data);
   });
 
