@@ -11,8 +11,15 @@ import { ButtonComponent, TextComponent } from '../components';
 /** Utils */
 import { handleNavigate } from '../utils';
 
+/** Hooks */
+import { useAppDispatch } from '../hook';
+
+/** Reducers */
+import { setUser } from '../../reducers';
+
 /** Interfaces */
 import { ILoginForm } from '../interfaces';
+import { userAPI } from '../api/user.api';
 
 export function Login({ navigation }: NavigationProps<'Login'>): JSX.Element {
   const { control, handleSubmit } = useForm<ILoginForm>();
@@ -21,30 +28,28 @@ export function Login({ navigation }: NavigationProps<'Login'>): JSX.Element {
   const textInputRef = useRef<TextInput>(null);
   Keyboard.addListener('keyboardDidHide', () => textInputRef.current?.blur());
 
+  const dispatch = useAppDispatch();
+
   const onSubmit = handleSubmit(async (data) => {
     setIsLoading(true);
     textInputRef.current?.blur();
 
     // aqui será feita a requisição para a API
-    const response = await new Promise<{ error: boolean, message: string }>((resolve) => {
-      setTimeout(() => {
-        const randomNumber = Math.random();
-        if (randomNumber < 0.1) {
-          resolve({ error: false, message: 'Login efetuado' });
-        } else {
-          resolve({ error: true, message: 'Usuário ou senha inválidos' });
-        }
-      }, 3000);
-    }).finally(() => setIsLoading(false));
+    try {
+      const user = await userAPI.login(data.email, data.password);
+      dispatch(setUser(user));
+      handleNavigate('ShopList', navigation);
+    } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Tente novamente mais tarde',
+        visibilityTime: 4000,
+        autoHide: true,
+        topOffset: 56,
+      });
+    }
 
-    Toast.show({
-      type: response.error ? 'error' : 'success',
-      text1: response.error ? 'Erro' : 'Sucesso',
-      text2: response.message,
-      visibilityTime: 4000,
-      autoHide: true,
-      topOffset: 56,
-    });
 
     handleNavigate('ShopList', navigation);
     console.log(data);
