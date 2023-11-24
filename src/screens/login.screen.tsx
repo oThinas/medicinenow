@@ -50,9 +50,7 @@ export function Login({ navigation }: NavigationProps<'Login'>): JSX.Element {
       });
     }
 
-
     handleNavigate('ShopList', navigation);
-    console.log(data);
   });
 
   return (

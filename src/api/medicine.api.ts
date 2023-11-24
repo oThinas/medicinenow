@@ -1,4 +1,7 @@
+/** API */
 import { api } from '../../lib';
+
+/** Interfaces */
 import { IMedicine } from '../interfaces';
 
 async function getMedicineList(): Promise<IMedicine[]> {

@@ -1,3 +1,4 @@
+export type { ICheckout } from './ICheckout';
 export type { ILoginForm } from './ILoginForm';
 export type { IMedicine } from './IMedicine';
 export type { IMedicineCart } from './IMedicineCart';

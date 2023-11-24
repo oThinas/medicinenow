@@ -18,7 +18,7 @@ import { clearCart } from '../reducers';
 import { handleNavigate } from '../utils';
 
 /** API */
-import { medicineAPI } from '../api';
+import { checkoutAPI, medicineAPI } from '../api';
 
 /** Interfaces */
 import { IMedicine } from '../interfaces';
@@ -54,6 +54,22 @@ export function ShopList({ navigation }: NavigationProps<'ShopList'>): JSX.Eleme
     dispatch(clearCart());
   }
 
+  async function handleCheckout(): Promise<void> {
+    try {
+      const response = await checkoutAPI.checkout(cart);
+      handleNavigate('Checkout', navigation, response);
+    } catch {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Tente novamente mais tarde',
+        visibilityTime: 4000,
+        autoHide: true,
+        topOffset: 56,
+      });
+    }
+  }
+
   return (
     <View style={styles.container}>
       {medicineList.length ? (
@@ -78,7 +94,7 @@ export function ShopList({ navigation }: NavigationProps<'ShopList'>): JSX.Eleme
           Total de itens: {medicineQuantity}
         </TextComponent>
 
-        <ButtonComponent onPress={() => handleNavigate('ShopList', navigation)} disabled={!cart.length}>
+        <ButtonComponent onPress={() => handleCheckout()} disabled={!cart.length}>
           Finalizar resgate
         </ButtonComponent>
 
